@@ -1,56 +1,92 @@
-# Welcome to your Expo app 👋
+# Vuyo Store
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A premium fashion and lifestyle shopping app built with Expo and React Native. It runs on iOS, Android, and the web.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Onboarding** for first-time users
+- **Home**: hero banner, featured collections, category grid, and product rails
+- **Shop**: browse by category (Clothing, Shoes, Accessories, Bags, Watches, Lifestyle), with sort and filter sheets
+- **Search** with popular search suggestions
+- **Product details**: image gallery with pinch-to-zoom viewer, color and size selectors, size guide, ratings, and quick add
+- **Wishlist** to save favourite pieces
+- **Bag**: quantity stepper, free-delivery progress meter, and promo codes
+- **Checkout flow**: delivery address, then payment (UPI, card, or cash on delivery), then review, then success
+- **Orders**: order history and a status timeline (confirmed, packed, shipped, delivered)
+- **Profile & account**: saved addresses, sizes, notifications, help, and about
+- Cart, wishlist, orders, and preferences are saved on the device, so they survive app restarts
+- Haptic feedback, skeleton loaders, toasts, and smooth animations
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+| Area        | Library                                                         |
+| ----------- | --------------------------------------------------------------- |
+| Framework   | Expo SDK 57, React Native 0.86, React 19                        |
+| Navigation  | Expo Router (file-based, typed routes)                          |
+| State       | Zustand + AsyncStorage persistence                              |
+| Animations  | React Native Reanimated, Gesture Handler                        |
+| UI          | expo-image, expo-linear-gradient, expo-glass-effect, expo-symbols |
+| Fonts       | Fraunces and Inter (Google Fonts)                               |
+| Language    | TypeScript (React Compiler enabled)                             |
 
-   ```bash
-   npx expo start
-   ```
+## Project Structure
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+├── app/              # Screens (Expo Router)
+│   ├── (tabs)/       # Home, Shop, Wishlist, Bag, Profile
+│   ├── product/      # Product details
+│   ├── collection/   # Collection pages
+│   ├── checkout/     # Delivery, payment, review, success
+│   ├── orders/       # Order list and order details
+│   ├── account/      # Addresses, sizes, notifications, help, about
+│   ├── search.tsx
+│   └── onboarding.tsx
+├── components/       # Reusable UI, grouped by feature (home, product, checkout, orders, ui)
+├── data/             # Mock catalog: products, categories, banners, orders, store info
+├── lib/              # Helpers: catalog queries, pricing, haptics, storage, hooks
+├── store/            # Zustand stores: cart, wishlist, checkout, orders, preferences, UI
+└── theme/            # Design tokens: colors, spacing, radius, typography
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Getting Started
 
-### Other setup steps
+### Prerequisites
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Node.js (LTS)
+- The [Expo Go](https://expo.dev/go) app on your phone, or an Android emulator / iOS simulator
 
-## Learn more
+### Install and run
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+npx expo start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Then press `a` for Android, `i` for iOS, or `w` for web, or scan the QR code with Expo Go.
 
-## Join the community
+### Useful scripts
 
-Join our community of developers creating universal apps.
+```bash
+npm run android     # start on Android
+npm run ios         # start on iOS
+npm run web         # start on web
+npm run lint        # lint the project
+npx tsc --noEmit    # typecheck
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Building with EAS
+
+The project is set up for [EAS Build](https://docs.expo.dev/build/introduction/) with `development`, `preview`, and `production` profiles (see `eas.json`).
+
+```bash
+npx eas-cli@latest build --profile preview --platform android
+npx eas-cli@latest build --profile production --platform all
+npx eas-cli@latest submit --platform all
+```
+
+## Notes
+
+- All product, category, and order data is mock data in `src/data/`. There is no backend yet.
+- Prices are in Indian Rupees (₹). Delivery is free on orders over ₹2,999.
+- Promo codes you can try: `WELCOME10` and `VUYO15`.
